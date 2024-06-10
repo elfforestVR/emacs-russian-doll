@@ -1,0 +1,3 @@
+* emacs
+** Проверка орфографии
+[[https://reangdblog.blogspot.com/2015/06/emacs_28.html][Расширенная проверка орфографии в emacs]]

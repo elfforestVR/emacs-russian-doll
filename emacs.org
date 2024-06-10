@@ -1,0 +1,53 @@
+#+title: My Emacs config file
+#+author: Владимир Рязанцев
+#+email: russiandoll36@mail.com
+
+Это мой файл конфигурации Emacs.
+
+Настройка написана в [[https://en.wikipedia.org/wiki/Literate_programming][стиле грамотного программирования]]
+
+*Примечание.* Я постоянно дописываю что то новое в свою конфигурацию по мере
+необходимости но не загружаю её не нужными настройками.
+
+
+
+* Оглавление                                                 :TOC_3:noexport:
+- [[Рекомендации]]
+- [[Оптимизация производительности]]
+- [[Проверка орфографии]]
+
+* Рекомендации
+- [[http://pages.sachachua.com/.emacs.d/Sacha.html][Конфигурация Emacs Сача Чуа]]
+
+Конфигурация Emacs - это можно сказать искуство, я многому научился читая файлы настроек
+взятые у других людей.
+Вот список ресурсов которые я щитаю для моего взляда самые хорошие.
+
+* emacs
+:PROPERTIES:
+:CUSTOM_ID: init
+:header-args:emacs-lisp: :tangle ~/.emacs.d/init.el :mkdirp yes :shebang ";;-*- mode: emacs-lisp; lexical-binding: t; no-byte-compile>
+:END:
+** Оптимизация производительности
+** Проверка орфографии
+#+begin_src emacs-lisp
+  ;;если есть программка hunspell, то используем её для проверки орфографии
+  ;;словарь - en-ru
+  (if (executable-find "hunspell")
+      (progn
+	(setq ispell-program-name "hunspell")
+	(setq ispell-really-aspell nil)
+	(setq ispell-really-hunspell t)
+	(setq ispell-dictionary "en-ru")
+      )
+  )
+  ;;режим работы с файлами в emacs по умолчанию - текстовый
+  (setq default-major-mode 'text-mode)
+  ;;включаем проверку синтаксиса на лету в emacs с помощью flyspell-mode
+  (dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1)))
+  )
+  ;;назначаем на Ctrl+l интерактивную проверку орфографии
+  (global-set-key (kbd "C-l") 'ispell)
+#+end_src
+
